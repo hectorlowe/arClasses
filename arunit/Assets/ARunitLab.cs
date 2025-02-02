@@ -66,7 +66,10 @@ public class ARunitLab : MonoBehaviour
 
     private void Update()
     {
+        // gets the number of tracked planes
         plane_count = _arPlaneManager.trackables.count;
+
+        //reset point count
         point_count = 0;
 
         // Calculate point count from ARPointCloudManager
