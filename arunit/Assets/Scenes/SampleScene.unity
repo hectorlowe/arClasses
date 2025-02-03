@@ -167,7 +167,6 @@ GameObject:
   - component: {fileID: 782628376}
   - component: {fileID: 782628379}
   - component: {fileID: 782628378}
-  - component: {fileID: 782628380}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -235,23 +234,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 7427163196766688786, guid: 456e1585fd91d51469b5da1e2d12bb29, type: 3}
   m_DetectionMode: -1
---- !u!114 &782628380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782628375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bd0047e843409246b5dd10a5636e258, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 0}
-  _stateText: {fileID: 1813803340}
-  _arPlaneManager: {fileID: 0}
-  _arPointCloudManager: {fileID: 0}
-  _planeText: {fileID: 2089110260}
 --- !u!1 &1379029478
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +245,7 @@ GameObject:
   - component: {fileID: 1379029481}
   - component: {fileID: 1379029480}
   - component: {fileID: 1379029479}
+  - component: {fileID: 1379029482}
   m_Layer: 0
   m_Name: AR Session
   m_TagString: Untagged
@@ -312,6 +295,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1379029482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379029478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd0047e843409246b5dd10a5636e258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 0}
+  _stateText: {fileID: 1813803340}
+  _arPlaneManager: {fileID: 0}
+  _arPointCloudManager: {fileID: 0}
+  _planeText: {fileID: 2089110260}
 --- !u!1001 &1813803339
 PrefabInstance:
   m_ObjectHideFlags: 0
