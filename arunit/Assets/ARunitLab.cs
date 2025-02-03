@@ -17,6 +17,7 @@ public class ARunitLab : MonoBehaviour
     [SerializeField] private ARPlaneManager _arPlaneManager;
     [SerializeField] private ARPointCloudManager _arPointCloudManager;
     [SerializeField] private TMP_Text _planeText;
+    private List<ARPlane> _trackedPlanes = new List<ARPlane>();
 
 
 
@@ -43,6 +44,7 @@ public class ARunitLab : MonoBehaviour
         foreach (var plane in args.added)
         {
             Debug.Log("Plane added: " + plane.trackableId);
+            _trackedPlanes.Add(plane);  // Add the plane to the tracked list
         }
 
         // Handle updated planes
@@ -55,10 +57,11 @@ public class ARunitLab : MonoBehaviour
         foreach (var plane in args.removed)
         {
             Debug.Log("Plane removed: " + plane.trackableId);
+            _trackedPlanes.Remove(plane);  // Remove the plane from the tracked list
         }
 
         // Update the plane count (you could display this in the UI as well)
-        plane_count = _arPlaneManager.trackables.count;
+        plane_count = _trackedPlanes.Count;
 
         // Update the UI with the new plane count
         _planeText.text = $"Planes: {plane_count}";
