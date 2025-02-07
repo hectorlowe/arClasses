@@ -18,6 +18,8 @@ public class ARunitLab : MonoBehaviour
     [SerializeField] private ARPointCloudManager _arPointCloudManager;
     [SerializeField] private TMP_Text _planeText;
     private List<ARPlane> _trackedPlanes = new List<ARPlane>();
+    private List<Vector3> _trackedPoints = new List<Vector3>();
+
 
 
 
@@ -34,6 +36,10 @@ public class ARunitLab : MonoBehaviour
 
         // Subscribe to the planes changed event
         _arPlaneManager.planesChanged += OnPlanesChanged;
+
+
+        // Subscribe to the point cloud changed event
+       // _arPointCloudManager.pointCloudChanged += OnPointCloudChanged;
 
     }
     private void OnPlanesChanged(ARPlanesChangedEventArgs args)
@@ -67,6 +73,39 @@ public class ARunitLab : MonoBehaviour
         _planeText.text = $"Planes: {plane_count}";
     }
 
+    private void OnPointCloudChanged(ARPointCloudChangedEventArgs args)
+    {
+        // Handle added points
+        foreach (var addedPointCloud in args.added)
+        {
+            Debug.Log("Point cloud added: " + addedPointCloud.trackableId);
+            _trackedPoints.AddRange(addedPointCloud.positions);
+        }
+
+        // Handle updated points
+        foreach (var updatedPointCloud in args.updated)
+        {
+            Debug.Log("Point cloud updated: " + updatedPointCloud.trackableId);
+            // You may want to update positions here if needed
+        }
+
+        // Handle removed points
+        foreach (var removedPointCloud in args.removed)
+        {
+            Debug.Log("Point cloud removed: " + removedPointCloud.trackableId);
+            // You can choose to remove the points here if necessary (not always needed)
+            // But we are keeping track of all points, so we'll just reset the list for simplicity
+            _trackedPoints.Clear();
+        }
+
+        // Update the point count (based on the positions stored in _trackedPoints)
+        point_count = _trackedPoints.Count;
+
+        // Update the UI to show the point count
+        text.text = $"Points: {point_count}";
+    }
+
+
     private void Update()
     {
         // gets the number of tracked planes
@@ -93,6 +132,8 @@ public class ARunitLab : MonoBehaviour
     {
         // Unsubscribe from events to avoid memory leaks
         ARSession.stateChanged -= OnARSessionStateChanged;
+
+        // _arPointCloudManager.pointCloudChanged -= OnPointCloudChanged;
         _arPlaneManager.planesChanged -= OnPlanesChanged;
     }
 }
