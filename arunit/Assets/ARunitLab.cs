@@ -37,7 +37,7 @@ public class ARunitLab : MonoBehaviour
         _arPlaneManager.planesChanged += OnPlanesChanged;
 
         // Subscribe to the point cloud changed event
-        _arPointCloudManager.pointCloudChanged += OnPointCloudChanged;
+       // _arPointCloudManager.pointCloudChanged += OnPointCloudChanged;
 
 
     }
@@ -131,7 +131,7 @@ public class ARunitLab : MonoBehaviour
     {
         // Unsubscribe from events to avoid memory leaks
         ARSession.stateChanged -= OnARSessionStateChanged;
-        _arPointCloudManager.pointCloudChanged -= OnPointCloudChanged;
+        // _arPointCloudManager.pointCloudChanged -= OnPointCloudChanged;
         _arPlaneManager.planesChanged -= OnPlanesChanged;
     }
 }
