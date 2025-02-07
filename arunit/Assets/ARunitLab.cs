@@ -22,6 +22,7 @@ public class ARunitLab : MonoBehaviour
 
 
 
+
     private void OnARSessionStateChanged(ARSessionStateChangedEventArgs args)
     {
         // You could log or process session state changes here if needed
@@ -36,9 +37,9 @@ public class ARunitLab : MonoBehaviour
         // Subscribe to the planes changed event
         _arPlaneManager.planesChanged += OnPlanesChanged;
 
+
         // Subscribe to the point cloud changed event
        // _arPointCloudManager.pointCloudChanged += OnPointCloudChanged;
-
 
     }
     private void OnPlanesChanged(ARPlanesChangedEventArgs args)
@@ -131,6 +132,7 @@ public class ARunitLab : MonoBehaviour
     {
         // Unsubscribe from events to avoid memory leaks
         ARSession.stateChanged -= OnARSessionStateChanged;
+
         // _arPointCloudManager.pointCloudChanged -= OnPointCloudChanged;
         _arPlaneManager.planesChanged -= OnPlanesChanged;
     }
