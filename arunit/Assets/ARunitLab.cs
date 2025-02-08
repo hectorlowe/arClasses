@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,10 +18,47 @@ public class ARunitLab : MonoBehaviour
     [SerializeField] private ARPlaneManager _arPlaneManager;
     [SerializeField] private ARPointCloudManager _arPointCloudManager;
     [SerializeField] private TMP_Text _planeText;
+    [SerializeField] private ARTrackedImageManager _arTrackedImageManager;
+    [SerializeField] private GameObject _robotPrefab;
+    private GameObject robot = null;
+    private float theta = 0f;
     private List<ARPlane> _trackedPlanes = new List<ARPlane>();
     private List<Vector3> _trackedPoints = new List<Vector3>();
 
+    
+    private void OnEnable()
+    {
+        //Subscribe to the Track Image Changes
+        _arTrackedImageManager.trackedImagesChanged += onTrackedImageChanged;
+    }
 
+    private void OnDisable()
+    {
+        //Unsubscribe to the Track Image Changes?
+        _arTrackedImageManager.trackedImagesChanged -= onTrackedImageChanged;
+    }
+
+    private void onTrackedImageChanged(ARTrackedImagesChangedEventArgs args)
+    {
+        foreach (var addedImage in args.added)
+        {
+            // Debug log to confirm the image was detected
+            Debug.Log("Image detected: " + addedImage.referenceImage.name);
+
+            if (_robotPrefab != null)
+            {
+                // Instantiate the prefab at the position of the detected image
+                GameObject spawnedRobot = Instantiate(_robotPrefab, addedImage.transform.position, Quaternion.identity);
+
+                // Parent the robot to the tracked image (this ensures it moves with the image)
+                spawnedRobot.transform.SetParent(addedImage.transform);
+
+                // Optionally, reset the local position and rotation to ensure it's centered on the image
+                spawnedRobot.transform.localPosition = Vector3.zero;  // Keeps the robot at the center of the image
+                spawnedRobot.transform.localRotation = Quaternion.identity;  // Align the robot’s rotation to the image's rotation
+            }
+        }
+    }
 
 
     private void OnARSessionStateChanged(ARSessionStateChangedEventArgs args)
@@ -39,7 +77,8 @@ public class ARunitLab : MonoBehaviour
 
 
         // Subscribe to the point cloud changed event
-       // _arPointCloudManager.pointCloudChanged += OnPointCloudChanged;
+        _arPointCloudManager.pointCloudsChanged += OnPointCloudChanged;
+
 
     }
     private void OnPlanesChanged(ARPlanesChangedEventArgs args)
@@ -124,7 +163,7 @@ public class ARunitLab : MonoBehaviour
         }
 
         // Update the UI text
-        _planeText.text = $"Planes: {plane_count}";
+        _planeText.text = $"Planes: {plane_count} Points: {point_count}";
         text.text = $"Points: {point_count}";
 
     }
@@ -133,7 +172,7 @@ public class ARunitLab : MonoBehaviour
         // Unsubscribe from events to avoid memory leaks
         ARSession.stateChanged -= OnARSessionStateChanged;
 
-        // _arPointCloudManager.pointCloudChanged -= OnPointCloudChanged;
+        _arPointCloudManager.pointCloudsChanged -= OnPointCloudChanged;
         _arPlaneManager.planesChanged -= OnPlanesChanged;
     }
 }

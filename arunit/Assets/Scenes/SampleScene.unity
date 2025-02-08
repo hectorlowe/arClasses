@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 782628376}
   - component: {fileID: 782628379}
   - component: {fileID: 782628378}
+  - component: {fileID: 782628380}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -234,6 +235,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 7427163196766688786, guid: 456e1585fd91d51469b5da1e2d12bb29, type: 3}
   m_DetectionMode: -1
+--- !u!114 &782628380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782628375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dea56a9eaadd1c439095de4f9a371cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedLibrary: {fileID: 11400000, guid: aa43cf259c3b47a41ba864f898fb30c6, type: 2}
+  m_MaxNumberOfMovingImages: 0
+  m_TrackedImagePrefab: {fileID: 0}
 --- !u!1 &1379029478
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +328,8 @@ MonoBehaviour:
   _arPlaneManager: {fileID: 782628379}
   _arPointCloudManager: {fileID: 782628378}
   _planeText: {fileID: 2089110260}
+  _arTrackedImageManager: {fileID: 782628380}
+  _robotPrefab: {fileID: 2338478947324232527, guid: 39dfcf0d9a8517a4eb3b4f40a80a5453, type: 3}
 --- !u!1001 &1813803339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -343,6 +361,10 @@ PrefabInstance:
     - target: {fileID: 114405692080878750, guid: 7d4edbe29a524e643bb29bad36c33fbd, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114941804118607034, guid: 7d4edbe29a524e643bb29bad36c33fbd, type: 3}
+      propertyPath: m_text
+      value: N Planes
       objectReference: {fileID: 0}
     - target: {fileID: 114941804118607034, guid: 7d4edbe29a524e643bb29bad36c33fbd, type: 3}
       propertyPath: m_textAlignment
